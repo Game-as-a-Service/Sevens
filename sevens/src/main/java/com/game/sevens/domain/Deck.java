@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private List<Card> deck = new ArrayList<>();
+    private List<LocalCard> deck = new ArrayList<>();
 
     public Deck(){
 //        List<Rank> ranks = new ArrayList<>();
@@ -30,16 +30,16 @@ public class Deck {
 
         for (Rank rank: Rank.values()){
             for (Suit suit: Suit.values()){
-                deck.add(new Card(rank, suit));
+                deck.add(new LocalCard(rank, suit));
             }
         }
     }
     public void shuffle(){
         Collections.shuffle(deck);
     }
-    public void dealCard(Player player){
-        Card card = deck.remove(0);
-        player.addCard(card);
+    public void dealCard(LocalPlayer localPlayer){
+        LocalCard localCard = deck.remove(0);
+        localPlayer.addCard(localCard);
     }
 
 }

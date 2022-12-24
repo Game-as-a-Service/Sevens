@@ -1,10 +1,10 @@
 package com.game.sevens.domain;
 
-public class Card {
+public class LocalCard {
     private Rank rank;
     private Suit suit;
 
-    public Card(Rank rank, Suit suit) {
+    public LocalCard(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
     }
