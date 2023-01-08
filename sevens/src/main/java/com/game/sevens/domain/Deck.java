@@ -42,4 +42,8 @@ public class Deck {
         localPlayer.addCard(localCard);
     }
 
+    public int getDeckSize(){
+        return deck.size();
+    }
+
 }

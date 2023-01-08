@@ -39,4 +39,12 @@ public class LocalPlayer {
     public int handsNum(){
         return hands.size();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<LocalCard> getHands() {
+        return hands;
+    }
 }

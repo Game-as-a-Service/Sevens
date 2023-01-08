@@ -13,6 +13,8 @@ public class Field {
     private List<Card> line = new ArrayList<>();
     private String rank;
 
+    private Apple apple;
+
     public String getId() {
         return id;
     }
@@ -35,5 +37,13 @@ public class Field {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    public Apple getApple() {
+        return apple;
+    }
+
+    public void setApple(Apple apple) {
+        this.apple = apple;
     }
 }

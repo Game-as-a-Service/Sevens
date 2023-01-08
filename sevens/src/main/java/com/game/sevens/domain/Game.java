@@ -1,50 +1,67 @@
 package com.game.sevens.domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Game {
-    private Map<Suit, List<LocalCard>> field = new HashMap<>();
+    private Map<Rank, List<LocalCard>> field = new HashMap<>();
     private List<LocalPlayer> localPlayers = new ArrayList<>();
     private Deck deck = new Deck();
 
+    private int turnNum = 1;
+
+    private int xPlayersTurn = 1;
+
     public Game() {
-        for (Suit suit : Suit.values()) {
-            field.put(suit,new ArrayList<>());
+        for (Rank rank : Rank.values()) {
+            field.put(rank,new ArrayList<>());
         }
     }
 
     public void startGame(){
-
+        //initialization
+        //shuffle deck
+        deck.shuffle();
+        //deal card
+        while (deck.getDeckSize()>0){
+            for (LocalPlayer player: localPlayers){
+                deck.dealCard(player);
+            }
+        }
+        for (LocalPlayer player: localPlayers){
+            Collections.sort(player.getHands());
+        }
     }
-    public boolean shownCardIsLegal(LocalCard localCard) {
+    public boolean shownCardIsLegal(LocalCard localCard){
         //find same suit line
-        List<LocalCard> line = field.get(localCard.getSuit());
+        List<LocalCard> line = field.get(localCard.getRank());
         //check if previous or next rank
-        if (localCard.getRank().toString().equals("SEVEN")){
+        if (localCard.getSuit().toString().equals("SEVEN")){
             return true;
         }
-        else if (line.get(0).getRank().ordinal() - localCard.getRank().ordinal() == 1){
-            return true;
+        try{
+            if (line.get(0).getSuit().ordinal() - localCard.getSuit().ordinal() == 1){
+                return true;
+            }
+            else if (localCard.getSuit().ordinal() - line.get(line.size()-1).getSuit().ordinal()== 1){
+                return true;
+            }
+        }catch(Exception e){
+
         }
-        else if (localCard.getRank().ordinal() - line.get(line.size()-1).getRank().ordinal()== 1){
-            return true;
-        }
+
         return false;
     }
 
     public void addCardToField(LocalCard localCard) {
         //find same suit line
-        List<LocalCard> line = field.get(localCard.getSuit());
-        if (localCard.getRank().toString().equals("SEVEN")){
+        List<LocalCard> line = field.get(localCard.getRank());
+        if (localCard.getSuit().toString().equals("SEVEN")){
             line.add(localCard);
         }
-        else if (line.get(0).getRank().ordinal() - localCard.getRank().ordinal() == 1){
+        else if (line.get(0).getSuit().ordinal() - localCard.getSuit().ordinal() == 1){
             line.add(0, localCard);
         }
-        else if (localCard.getRank().ordinal() - line.get(line.size()-1).getRank().ordinal()== 1){
+        else if (localCard.getSuit().ordinal() - line.get(line.size()-1).getSuit().ordinal()== 1){
             line.add(localCard);
         }
 
@@ -57,5 +74,45 @@ public class Game {
             }
             System.out.println();
         }
+    }
+
+    public void addPlayer(LocalPlayer localPlayer){
+        localPlayers.add(localPlayer);
+    }
+
+    public Map<Rank, List<LocalCard>> getField() {
+        return field;
+    }
+
+    public List<LocalPlayer> getLocalPlayers() {
+        return localPlayers;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public int getTurnNum() {
+        return turnNum;
+    }
+
+    public int getxPlayersTurn() {
+        return xPlayersTurn;
+    }
+
+    public void setField(Map<Rank, List<LocalCard>> field) {
+        this.field = field;
+    }
+
+    public void setLocalPlayers(List<LocalPlayer> localPlayers) {
+        this.localPlayers = localPlayers;
+    }
+
+    public void setTurnNum(int turnNum) {
+        this.turnNum = turnNum;
+    }
+
+    public void setxPlayersTurn(int xPlayersTurn) {
+        this.xPlayersTurn = xPlayersTurn;
     }
 }

@@ -1,6 +1,6 @@
 package com.game.sevens.domain;
 
-public class LocalCard {
+public class LocalCard implements Comparable<LocalCard>{
     private Rank rank;
     private Suit suit;
 
@@ -68,5 +68,19 @@ public class LocalCard {
         return "" + rank +
                 "[" + suit + "]" +
                 "";
+    }
+
+    @Override
+    public int compareTo(LocalCard o) {
+
+        if (this.suit.ordinal() > o.getSuit().ordinal()) {
+            return 0;
+        } else if (this.suit.ordinal() == o.getSuit().ordinal()) {
+            if (this.rank.ordinal() > o.getRank().ordinal()) {
+                return 0;
+            }
+            return -1;
+        }
+        return -1;
     }
 }

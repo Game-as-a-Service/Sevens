@@ -1,6 +1,5 @@
 package com.game.sevens.controllers;
 
-import com.game.sevens.domain.LocalCard;
 import com.game.sevens.model.Card;
 import com.game.sevens.model.Field;
 import com.game.sevens.model.Player;
