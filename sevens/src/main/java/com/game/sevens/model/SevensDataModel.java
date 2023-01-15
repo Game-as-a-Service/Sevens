@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Document(collection = "Games")
 public class SevensDataModel {
@@ -17,17 +20,35 @@ public class SevensDataModel {
     private int turnNum = 1;
     private Integer xPlayersTurn=1;
     private Map<Rank, List<LocalCard>> field = new HashMap<>();
-    private List<LocalPlayer> localPlayers = new ArrayList<>();
+    private List<Player> localPlayers = new ArrayList<>();
     //private Deck deck = new Deck();
 
     public Game toGame(){
         Game game = new Game();
         game.setField(this.field);
-        game.setLocalPlayers(this.localPlayers);
+        //game.setLocalPlayers(this.localPlayers);
         game.setTurnNum(this.getTurnNum());
         return game;
     }
 
+
+
+    public static class CardData{
+
+        public static LocalCard toDomain(String rankStr, String suitStr) {
+            Map<String, Rank> rankMap =
+                    Stream.of(Rank.values())
+                            .collect(Collectors.toMap(Rank::name, Function.identity()));
+            Map<String, Suit> suitMap =
+                    Stream.of(Suit.values())
+                            .collect(Collectors.toMap(Suit::name, Function.identity()));
+            Rank rank = rankMap.get(rankStr);
+            Suit suit = suitMap.get(suitStr);
+            LocalCard localCard = new LocalCard(rank,suit);
+            return localCard;
+
+        }
+    }
     public SevensDataModel toData(){
         SevensDataModel sevensDataModel = new SevensDataModel();
         return sevensDataModel;
@@ -45,9 +66,7 @@ public class SevensDataModel {
         return field;
     }
 
-    public List<LocalPlayer> getLocalPlayers() {
-        return localPlayers;
-    }
+
 
     public int getTurnNum() {
         return turnNum;
@@ -65,9 +84,7 @@ public class SevensDataModel {
         this.field = field;
     }
 
-    public void setLocalPlayers(List<LocalPlayer> localPlayers) {
-        this.localPlayers = localPlayers;
-    }
+    
 
     public void setTurnNum(int turnNum) {
         this.turnNum = turnNum;

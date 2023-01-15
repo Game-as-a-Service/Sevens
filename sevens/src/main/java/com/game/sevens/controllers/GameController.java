@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.synth.SynthTextAreaUI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/games")
@@ -57,12 +58,42 @@ public class GameController {
         return "get game successfully";
     }
 
-    @PostMapping("putdowncard/{gameId}")
-    public String putDownCard(@PathVariable("gameId") String gameId,
+    @PostMapping("putdown/{gameId}")
+    public String putDownCardByCard(@PathVariable("gameId") String gameId,
                               @RequestBody LocalCard card){
         PutDownCardUsecase putDownCardUsecase = new PutDownCardUsecase();
         SevensDataModel sevensDataModel = sevensDataRepository.findById(gameId).get();
         Game game = sevensDataModel.toGame();
+        boolean isLegal = putDownCardUsecase.execute(card, game);
+        //System.out.println(game.getLocalPlayers().get(game.getxPlayersTurn()%game.getLocalPlayers().size()).getHands());
+        if (isLegal == false){
+            return "illegal, please select the card again";
+        }
+        sevensDataModel.setTurnNum(sevensDataModel.getTurnNum()+1);
+        sevensDataModel.setField(game.getField());
+        sevensDataRepository.save(sevensDataModel);
+        return "success";
+    }
+    @GetMapping("gethands/{gameId}")
+    public List<LocalCard> getHands(@PathVariable("gameId") String gameId){
+        SevensDataModel sevensDataModel = sevensDataRepository.findById(gameId).get();
+        LocalPlayer player = sevensDataModel.getLocalPlayers().get(sevensDataModel.getTurnNum()%sevensDataModel.getLocalPlayers().size());
+        System.out.println(player.getHands());
+        return player.getHands();
+
+    }
+
+    @PostMapping("putdowncard/{gameId}/{cardId}")
+    public String putDownCardById(@PathVariable("gameId") String gameId,
+                                    @PathVariable("cardId") int cardId){
+        //get data & game
+        SevensDataModel sevensDataModel = sevensDataRepository.findById(gameId).get();
+        Game game = sevensDataModel.toGame();
+        //get card
+        LocalPlayer player = sevensDataModel.getLocalPlayers().get(sevensDataModel.getTurnNum()%sevensDataModel.getLocalPlayers().size());
+        LocalCard card = player.getHands().get(cardId);
+        //implement putdowncard
+        PutDownCardUsecase putDownCardUsecase = new PutDownCardUsecase();
         boolean isLegal = putDownCardUsecase.execute(card, game);
         //System.out.println(game.getLocalPlayers().get(game.getxPlayersTurn()%game.getLocalPlayers().size()).getHands());
         if (isLegal == false){

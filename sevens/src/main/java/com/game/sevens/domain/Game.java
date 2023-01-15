@@ -29,6 +29,7 @@ public class Game {
         }
         for (LocalPlayer player: localPlayers){
             Collections.sort(player.getHands());
+            System.out.println(player.getHands());
         }
     }
     public boolean shownCardIsLegal(LocalCard localCard){
@@ -38,15 +39,13 @@ public class Game {
         if (localCard.getSuit().toString().equals("SEVEN")){
             return true;
         }
-        try{
-            if (line.get(0).getSuit().ordinal() - localCard.getSuit().ordinal() == 1){
+        else if (line.size() > 0) {
+            if (line.get(0).getSuit().ordinal() - localCard.getSuit().ordinal() == 1) {
                 return true;
             }
-            else if (localCard.getSuit().ordinal() - line.get(line.size()-1).getSuit().ordinal()== 1){
+            else if (localCard.getSuit().ordinal() - line.get(line.size() - 1).getSuit().ordinal() == 1) {
                 return true;
             }
-        }catch(Exception e){
-
         }
 
         return false;
