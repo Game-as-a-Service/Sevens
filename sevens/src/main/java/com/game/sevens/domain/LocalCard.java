@@ -1,5 +1,10 @@
 package com.game.sevens.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class LocalCard implements Comparable<LocalCard>{
     private Rank rank;
     private Suit suit;
@@ -9,12 +14,9 @@ public class LocalCard implements Comparable<LocalCard>{
         this.suit = suit;
     }
 
-    public Rank getRank() {
-        return rank;
-    }
-
-    public Suit getSuit() {
-        return suit;
+    public LocalCard(String rank, String suit){
+        this.rank = Enum.valueOf(Rank.class, rank);
+        this.suit = Enum.valueOf(Suit.class, rank);
     }
 
     @Override

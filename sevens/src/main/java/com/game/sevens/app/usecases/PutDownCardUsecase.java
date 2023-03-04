@@ -8,7 +8,7 @@ public class PutDownCardUsecase {
 //    public void execute(LocalCard card, Game game) {
 //        var game = findGame(input);
 //
-//        Player player = game.getPlayer(input.side);
+//        PlayerData player = game.getPlayer(input.side);
 //        var events = game.moveChess(player, input.from, input.to);
 //
 //        chineseChessRepository.saveAndBroadcast(game, events);

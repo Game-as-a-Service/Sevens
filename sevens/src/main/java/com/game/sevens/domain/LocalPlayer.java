@@ -1,15 +1,25 @@
 package com.game.sevens.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@Setter
+@Getter
 public class LocalPlayer {
     private String name;
     private List<LocalCard> hands = new ArrayList<>();
 
     public LocalPlayer(String name) {
         this.name = name;
+    }
+
+    public LocalPlayer(String name, List<LocalCard> hands) {
+        this.name = name;
+        this.hands = hands;
     }
 
     public boolean putDown(Game game){
@@ -40,11 +50,4 @@ public class LocalPlayer {
         return hands.size();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public List<LocalCard> getHands() {
-        return hands;
-    }
 }

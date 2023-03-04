@@ -1,18 +1,9 @@
 package com.game.sevens.controllers;
 
-import com.game.sevens.app.usecases.PutDownCardUsecase;
-import com.game.sevens.domain.Game;
-import com.game.sevens.domain.LocalCard;
-import com.game.sevens.domain.LocalPlayer;
-import com.game.sevens.model.SevensDataModel;
 import com.game.sevens.repository.SevensDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.swing.plaf.synth.SynthTextAreaUI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/games")
@@ -34,6 +25,7 @@ public class GameController {
 //                              @RequestBody LocalCard card){
 //
 //    }
+    /*
     @PostMapping("startgame/{gameId}")
     public String startGame(@PathVariable("gameId") String gameId){
         Game game = new Game();
@@ -42,7 +34,7 @@ public class GameController {
         game.addPlayer(a);
         game.addPlayer(b);
         game.startGame();
-        SevensDataModel sevensDataModel = new SevensDataModel();
+        SevensData sevensDataModel = new SevensData();
         sevensDataModel.setId(gameId);
         sevensDataModel.setField(game.getField());
         sevensDataModel.setLocalPlayers(game.getLocalPlayers());
@@ -62,7 +54,7 @@ public class GameController {
     public String putDownCardByCard(@PathVariable("gameId") String gameId,
                               @RequestBody LocalCard card){
         PutDownCardUsecase putDownCardUsecase = new PutDownCardUsecase();
-        SevensDataModel sevensDataModel = sevensDataRepository.findById(gameId).get();
+        SevensData sevensDataModel = sevensDataRepository.findById(gameId).get();
         Game game = sevensDataModel.toGame();
         boolean isLegal = putDownCardUsecase.execute(card, game);
         //System.out.println(game.getLocalPlayers().get(game.getxPlayersTurn()%game.getLocalPlayers().size()).getHands());
@@ -74,20 +66,23 @@ public class GameController {
         sevensDataRepository.save(sevensDataModel);
         return "success";
     }
+
+    /*
     @GetMapping("gethands/{gameId}")
     public List<LocalCard> getHands(@PathVariable("gameId") String gameId){
-        SevensDataModel sevensDataModel = sevensDataRepository.findById(gameId).get();
+        SevensData sevensDataModel = sevensDataRepository.findById(gameId).get();
         LocalPlayer player = sevensDataModel.getLocalPlayers().get(sevensDataModel.getTurnNum()%sevensDataModel.getLocalPlayers().size());
         System.out.println(player.getHands());
         return player.getHands();
 
     }
-
+    */
+    /*
     @PostMapping("putdowncard/{gameId}/{cardId}")
     public String putDownCardById(@PathVariable("gameId") String gameId,
                                     @PathVariable("cardId") int cardId){
         //get data & game
-        SevensDataModel sevensDataModel = sevensDataRepository.findById(gameId).get();
+        SevensData sevensDataModel = sevensDataRepository.findById(gameId).get();
         Game game = sevensDataModel.toGame();
         //get card
         LocalPlayer player = sevensDataModel.getLocalPlayers().get(sevensDataModel.getTurnNum()%sevensDataModel.getLocalPlayers().size());
@@ -104,4 +99,5 @@ public class GameController {
         sevensDataRepository.save(sevensDataModel);
         return "success";
     }
+    */
 }

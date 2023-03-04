@@ -1,22 +1,43 @@
 package com.game.sevens.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Game {
-    private Map<Rank, List<LocalCard>> field = new HashMap<>();
+
+    private String id;
+    private Map<String, List<LocalCard>> field = new HashMap<>();
     private List<LocalPlayer> localPlayers = new ArrayList<>();
     private Deck deck = new Deck();
 
     private int turnNum = 1;
 
-    private int xPlayersTurn = 1;
 
-    public Game() {
-        for (Rank rank : Rank.values()) {
-            field.put(rank,new ArrayList<>());
+    public Game(String id, List<Field> field, List<LocalPlayer> players, int turnNum) {
+        this.id = id;
+        for (Field f: field){
+            this.field.put(f.getRank(),f.getField());
         }
+        this.localPlayers = players;
+        this.turnNum = turnNum;
     }
 
+    public List<Field> getFieldList(){
+        List<Field> fields = new ArrayList<>();
+        for (String rank: this.field.keySet()){
+            Field field = new Field(rank,this.field.get(rank));
+            fields.add(field);
+        }
+        return fields;
+    }
     public void startGame(){
         //initialization
         //shuffle deck
@@ -79,39 +100,8 @@ public class Game {
         localPlayers.add(localPlayer);
     }
 
-    public Map<Rank, List<LocalCard>> getField() {
-        return field;
-    }
 
-    public List<LocalPlayer> getLocalPlayers() {
-        return localPlayers;
-    }
 
-    public Deck getDeck() {
-        return deck;
-    }
 
-    public int getTurnNum() {
-        return turnNum;
-    }
 
-    public int getxPlayersTurn() {
-        return xPlayersTurn;
-    }
-
-    public void setField(Map<Rank, List<LocalCard>> field) {
-        this.field = field;
-    }
-
-    public void setLocalPlayers(List<LocalPlayer> localPlayers) {
-        this.localPlayers = localPlayers;
-    }
-
-    public void setTurnNum(int turnNum) {
-        this.turnNum = turnNum;
-    }
-
-    public void setxPlayersTurn(int xPlayersTurn) {
-        this.xPlayersTurn = xPlayersTurn;
-    }
 }

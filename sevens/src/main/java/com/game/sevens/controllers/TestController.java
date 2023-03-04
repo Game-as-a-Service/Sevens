@@ -1,15 +1,13 @@
 package com.game.sevens.controllers;
 
-import com.game.sevens.model.Card;
-import com.game.sevens.model.Player;
+//import com.game.sevens.model.Card;
+import com.game.sevens.model.PlayerData;
 import com.game.sevens.repository.CardTestRepository;
 import com.game.sevens.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("test")
@@ -23,12 +21,13 @@ public class TestController {
     public String test(){
         return "test";
     }
-
+    /*
     @PostMapping("/create")
     public String testCreate(@RequestBody Card card){
         cardTestRepository.save(card);
         return "create success";
     }
+
 
     @GetMapping("/getall")
     public List<Card> getCardsTest(){
@@ -48,15 +47,17 @@ public class TestController {
 
 
     @PostMapping("/addplayer")
-    public String createPlayer(@RequestBody Player player){
-        playerRepository.save(player);
-        return "player create success";
+    public String createPlayer(@RequestBody PlayerData playerData){
+        playerRepository.save(playerData);
+        return "playerData create success";
     }
     @PostMapping("/addcard")
-    public String addCard(@RequestBody Player player){
-        playerRepository.save(player);
-        return "player update success";
+    public String addCard(@RequestBody PlayerData playerData){
+        playerRepository.save(playerData);
+        return "playerData update success";
     }
+    */
+
 //    @PostMapping("/addfield")
 //    public String addField(@RequestBody Field field){
 //        //same rank
