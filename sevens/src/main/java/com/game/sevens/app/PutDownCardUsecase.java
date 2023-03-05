@@ -1,4 +1,4 @@
-package com.game.sevens.app.usecases;
+package com.game.sevens.app;
 
 import com.game.sevens.domain.Game;
 import com.game.sevens.domain.LocalCard;

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "Games")
+@Document(collection = "SevensGames")
 public class SevensData {
     @Id
     private String id;

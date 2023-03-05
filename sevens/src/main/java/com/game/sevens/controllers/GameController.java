@@ -1,5 +1,8 @@
 package com.game.sevens.controllers;
 
+import com.game.sevens.domain.Game;
+import com.game.sevens.domain.LocalPlayer;
+import com.game.sevens.model.SevensData;
 import com.game.sevens.repository.SevensDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,24 @@ import org.springframework.web.bind.annotation.*;
 public class GameController {
     @Autowired
     private SevensDataRepository sevensDataRepository;
+
+    @GetMapping("/{gameId}")
+    public String getGame(@PathVariable String gameId){
+        sevensDataRepository.findById(gameId);
+        return "get game successfully";
+    }
+
+    @GetMapping("/create")
+    public String testCreate(){
+        Game game = new Game();
+        game.addPlayer(new LocalPlayer("A"));
+        game.addPlayer(new LocalPlayer("B"));
+        game.startGame();
+        SevensData sevensData = SevensData.toData(game);
+        sevensDataRepository.save(sevensData);
+        return "create success";
+    }
+
 //    @PostMapping("/{gameId}/moves")
 //    public ResponseEntity<Void> moveChess(@PathVariable Integer gameId,
 //                                          @RequestBody MoveChessRequest input) {

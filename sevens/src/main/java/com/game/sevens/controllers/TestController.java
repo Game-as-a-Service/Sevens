@@ -1,22 +1,14 @@
 package com.game.sevens.controllers;
 
 //import com.game.sevens.model.Card;
-import com.game.sevens.model.PlayerData;
-import com.game.sevens.repository.CardTestRepository;
-import com.game.sevens.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("test")
 @CrossOrigin
 public class TestController {
-    @Autowired
-    private CardTestRepository cardTestRepository;
-    @Autowired
-    private PlayerRepository playerRepository;
+
     @GetMapping("/test")
     public String test(){
         return "test";

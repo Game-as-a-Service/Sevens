@@ -16,7 +16,7 @@ public class LocalCard implements Comparable<LocalCard>{
 
     public LocalCard(String rank, String suit){
         this.rank = Enum.valueOf(Rank.class, rank);
-        this.suit = Enum.valueOf(Suit.class, rank);
+        this.suit = Enum.valueOf(Suit.class, suit);
     }
 
     @Override
